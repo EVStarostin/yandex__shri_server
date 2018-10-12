@@ -16,10 +16,25 @@ app.get('/status', function (req, res) {
 app.get('/api/events', function (req, res) {
   const { type, page, limit } = req.query;
   const types = ['info', 'critical'];
-  if (type && types.indexOf(type) < 0) {
+
+  let wrongQuery = false;
+  let reqTypes = [];
+  if (type) {
+    reqTypes = type.split(':');
+    wrongQuery = false;
+    reqTypes.forEach(type => {
+      if (types.indexOf(type) < 0) {
+        wrongQuery = true;
+        return;
+      }
+    });
+  }
+
+  if (wrongQuery) {
     res.status(400).json({ msg: 'incorrect type' });
     return;
   }
+
   fs.readFile('./events.json', (err, data) => {
     if (err) throw err;
     let { events } = JSON.parse(data);
@@ -27,7 +42,7 @@ app.get('/api/events', function (req, res) {
     if (!type) {
       paginatedEvents = paginate(events, Number(page), Number(limit));
     } else {
-      events = events.filter(event => event.type === type);
+      events = events.filter(event => reqTypes.indexOf(event.type) >= 0);
       paginatedEvents = paginate(events, Number(page), Number(limit));
     }
     res.json({ events: paginatedEvents, total: events.length });
@@ -37,10 +52,25 @@ app.get('/api/events', function (req, res) {
 app.post('/api/events', function (req, res) {
   const { type, page, limit } = req.body;
   const types = ['info', 'critical'];
-  if (type && types.indexOf(type) < 0) {
+
+  let wrongQuery = false;
+  let reqTypes = [];
+  if (type) {
+    reqTypes = type.split(':');
+    wrongQuery = false;
+    reqTypes.forEach(type => {
+      if (types.indexOf(type) < 0) {
+        wrongQuery = true;
+        return;
+      }
+    });
+  }
+
+  if (wrongQuery) {
     res.status(400).json({ msg: 'incorrect type' });
     return;
   }
+
   fs.readFile('./events.json', (err, data) => {
     if (err) throw err;
     let { events } = JSON.parse(data);
@@ -48,7 +78,7 @@ app.post('/api/events', function (req, res) {
     if (!type) {
       paginatedEvents = paginate(events, Number(page), Number(limit));
     } else {
-      events = events.filter(event => event.type === type);
+      events = events.filter(event => reqTypes.indexOf(event.type) >= 0);
       paginatedEvents = paginate(events, Number(page), Number(limit));
     }
     res.json({ events: paginatedEvents, total: events.length });
