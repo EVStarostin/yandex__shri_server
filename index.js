@@ -63,8 +63,9 @@ app.get('*', function (req, res) {
   res.status(404).send('<h1>Page not found</h1>');
 });
 
-app.listen(8000, function () {
-  console.log('Example app listening on port 8000!');
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, function () {
+  console.log(`Example app listening on port ${ PORT }!`);
 });
 
 function formatTime(time) {
