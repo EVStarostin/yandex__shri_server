@@ -1,0 +1,25 @@
+{
+  "name": "yandex__shri_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EVStarostin/yandex__shri_server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EVStarostin/yandex__shri_server/issues"
+  },
+  "homepage": "https://github.com/EVStarostin/yandex__shri_server#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4"
+  }
+}
