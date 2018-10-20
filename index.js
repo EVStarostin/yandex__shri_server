@@ -45,18 +45,22 @@ function handeEventsRequest(req, res) {
     return;
   }
 
-  fs.readFile('./events.json', (err, data) => {
-    if (err) throw err;
-    let { events } = JSON.parse(data);
-    let paginatedEvents = [];
-    if (!type) {
-      paginatedEvents = paginate(events, Number(page), Number(limit));
-    } else {
-      events = events.filter(event => reqTypes.indexOf(event.type) >= 0);
-      paginatedEvents = paginate(events, Number(page), Number(limit));
-    }
-    res.json({ events: paginatedEvents, total: events.length });
-  });
+  try {
+    fs.readFile('./events.json', (err, data) => {
+      if (err) throw err;
+      let { events } = JSON.parse(data);
+      let paginatedEvents = [];
+      if (!type) {
+        paginatedEvents = paginate(events, Number(page), Number(limit));
+      } else {
+        events = events.filter(event => reqTypes.indexOf(event.type) >= 0);
+        paginatedEvents = paginate(events, Number(page), Number(limit));
+      }
+      res.json({ events: paginatedEvents, total: events.length });
+    });
+  } catch (error) {
+    error => next(error);
+  }
 };
 
 app.get('*', function (req, res) {
