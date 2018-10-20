@@ -17,7 +17,7 @@ app.get('/api/events', handeEventsRequest);
 
 app.post('/api/events', handeEventsRequest);
 
-function handeEventsRequest(req, res) {
+function handeEventsRequest(req, res, next) {
   let type, page, limit;
   if (req.method === 'POST') {
     ({ type, page, limit } = req.body);
