@@ -19,10 +19,6 @@ app.get('/status', function (req: express.Request, res: express.Response): void 
 app.get('/api/events', handeEventsRequest);
 app.post('/api/events', handeEventsRequest);
 
-<<<<<<< HEAD:index.js
-function handeEventsRequest(req, res, next) {
-  let type, page, limit;
-=======
 app.get('*', function (req: express.Request, res: express.Response): void {
   res.status(404).send('<h1>Page not found</h1>');
 });
@@ -35,7 +31,6 @@ function handeEventsRequest(req: express.Request, res: express.Response, next: F
   let type: string | null = null, 
       page: string | null = null, 
       limit: string | null = null;
->>>>>>> перевел приложение на type script:src/index.ts
   if (req.method === 'POST') {
     ({ type, page, limit } = req.body);
   } else if (req.method === 'GET') {
