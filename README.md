@@ -7,6 +7,8 @@ ts код расположен в папке: **./src**.
 `npm run build` - скомпилировать код из typecript в javascript.  
 `npm run start` - запустить локальный сервер на 8000 порту.  
 
+`npm run lint` - проверить линтером (с флагом --fix)  
+
 ### Было реализовано ранее в рамках ДЗ по NodeJS:  
 Для удобства состыковки с фронтом залил сервер на VPS — http://node.evstar.ru:8000/status  
 Ссылка на сайт — http://www.evstar.ru/  

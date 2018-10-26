@@ -20,9 +20,9 @@ interface IGraphData {
 }
 
 interface IGraphValues {
-  electricity: (number | string)[];
-  water: (number | string)[];
-  gas: (number | string)[];
+  electricity: Array<number | string>;
+  water: Array<number | string>;
+  gas: Array<number | string>;
 }
 
 interface IButtonsData {
