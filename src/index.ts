@@ -45,7 +45,7 @@ function handeEventsRequest(req: express.Request, res: express.Response, next: (
     reqTypes = type.split(":");
     wrongQuery = false;
     reqTypes.forEach((reqType: string) => {
-      if (types.indexOf(reqType) < 0) {
+      if (!types.includes(reqType)) {
         wrongQuery = true;
         return;
       }
@@ -65,7 +65,7 @@ function handeEventsRequest(req: express.Request, res: express.Response, next: (
       if (!type) {
         paginatedEvents = paginate(events, Number(page), Number(limit));
       } else {
-        events = events.filter((event) => reqTypes.indexOf(event.type) >= 0);
+        events = events.filter((event) => reqTypes.includes(event.type));
         paginatedEvents = paginate(events, Number(page), Number(limit));
       }
       res.json({ events: paginatedEvents, total: events.length });
