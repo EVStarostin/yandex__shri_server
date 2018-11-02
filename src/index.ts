@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 import fs from "fs";
-import { IData, IEvent } from "./models";
+import { Event, EventsData } from "./models";
 
 const PORT: string = process.env.PORT || "8000";
 const app: express.Application = express();
@@ -24,10 +24,11 @@ app.get("*", (req: express.Request, res: express.Response): void => {
 });
 
 app.listen(PORT, (): void => {
+  /* tslint:disable-next-line:no-console */
   console.log(`Example app listening on port ${ PORT }!`);
 });
 
-function handeEventsRequest(req: express.Request, res: express.Response, next: (error: Error) => void): void {
+function handeEventsRequest(req: express.Request, res: express.Response, next: express.NextFunction): void {
   let type: string | null = null;
   let page: string | null = null;
   let limit: string | null = null;
@@ -60,8 +61,8 @@ function handeEventsRequest(req: express.Request, res: express.Response, next: (
   try {
     fs.readFile("data/events.json", (err: NodeJS.ErrnoException, data: Buffer) => {
       if (err) { throw err; }
-      let { events }: IData = JSON.parse(String(data));
-      let paginatedEvents: IEvent[] = [];
+      let { events }: EventsData = JSON.parse(String(data));
+      let paginatedEvents: Event[] = [];
       if (!type) {
         paginatedEvents = paginate(events, Number(page), Number(limit));
       } else {
@@ -71,7 +72,7 @@ function handeEventsRequest(req: express.Request, res: express.Response, next: (
       res.json({ events: paginatedEvents, total: events.length });
     });
   } catch (error) {
-    next(error as Error);
+    next(error);
   }
 }
 
@@ -90,9 +91,9 @@ function formatTime(time: number): string {
   return formattedTime;
 }
 
-function paginate(array: IEvent[], page: number, limit: number): IEvent[] {
+function paginate(array: Event[], page: number, limit: number): Event[] {
   const defaultLimit: number = 10;
-  let respondData: IEvent[] = [];
+  let respondData: Event[] = [];
   if (isFinite(page) && isFinite(limit)) {
     respondData = array.slice( (page - 1) * limit, page * limit );
   } else if (isFinite(page)) {

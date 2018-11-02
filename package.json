@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./build/index.js",
+    "dev": "nodemon ./build/index.js",
+    "start": "node ./build/index.js",
     "start:ts": "ts-node ./src/index.ts",
     "build": "tsc",
     "lint": "tslint ./src/**/*.ts --fix"
