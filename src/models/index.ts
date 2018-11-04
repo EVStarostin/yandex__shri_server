@@ -31,3 +31,9 @@ export interface Event {
     volume?: number;
   };
 }
+
+export interface State {
+  events?: Event[];
+  errors?: Error[];
+  page?: string;
+}

@@ -9,7 +9,7 @@ router.get("/", (req: express.Request, res: express.Response, next: express.Next
 function getUptime(): string {
   const uptime = new Date();
   uptime.setTime(process.uptime() * 1000);
-  return uptime.toLocaleTimeString("ru-RU", {timeZone: "UTC"});
+  return uptime.toLocaleTimeString("ru-RU", { timeZone: "UTC", hour12: false });
 }
 
 export default router;

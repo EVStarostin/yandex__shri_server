@@ -4,8 +4,8 @@ import express from "express";
 import logger from "morgan";
 
 import eventsRouter from "./routes/events";
-import statusRouter from "./routes/status";
 import stateRouter from "./routes/state";
+import statusRouter from "./routes/status";
 
 const app = express();
 const PORT = process.env.PORT || "8000";

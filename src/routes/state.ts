@@ -1,4 +1,5 @@
 import express from "express";
+import { State } from "../models";
 
 const router = express.Router();
 let store: State = { page: "events" };
